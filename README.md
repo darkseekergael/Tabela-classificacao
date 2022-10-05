@@ -1,2 +1,2 @@
-# Tabela de classificação
-Tabela simples desenvolvida durante semana de Imersãodev da Alura.
+# :diamonds: Tabela de classificação
+Projeto simples de tabela de classificação, com validação e desenvolvido durante a semana de Imersãodev da Alura.
