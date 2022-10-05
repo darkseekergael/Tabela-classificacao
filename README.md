@@ -1,2 +1,2 @@
 # Tabela de classificação
-Projeto simples de uma tabela de classificação, com validação e desenvolvida durante a semana de Imersãodev da Alura.
+Projeto simples de tabela de classificação, com validação e desenvolvido durante a semana de Imersãodev da Alura.
