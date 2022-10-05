@@ -15,12 +15,27 @@
 // };
 
 // let jogadores = [rafa, paulo];
+
 let jogadores = [];
 
-exibirJogadores(jogadores);
+// exibirJogadores(jogadores);
 
-function adicionarJogadores(jogadores) {
-    
+function adicionarJogadores() {
+    let nomeJogador = document.getElementById("input-nome").value;
+
+    if (nomeJogador != "") {
+        const novoJogador = {
+            nome: nomeJogador,
+            vitorias: 0,
+            empates: 0,
+            derrotas: 0,
+            pontos: 0
+        };
+        
+        jogadores.push(novoJogador);
+    }
+
+    exibirJogadores(jogadores);
 }
 
 function calcularPontos(jogador) {
@@ -31,23 +46,25 @@ function calcularPontos(jogador) {
 function exibirJogadores(jogadores) {
     let elemento = "";
 
-    for (let i = 0; i < jogadores.length; i++) {
-        elemento += "<tr><td>" + jogadores[i].nome + "</td>";
-        elemento += "<td>" + jogadores[i].vitorias + "</td>";
-        elemento += "<td>" + jogadores[i].empates + "</td>";
-        elemento += "<td>" + jogadores[i].derrotas + "</td>";
-        elemento += "<td>" + jogadores[i].pontos + "</td>";
-        elemento +=
-            "<td><button onclick='adicionarVitoria(" + i + ")'>Vitória</button></td>";
-        elemento +=
-            "<td><button onclick='adicionarEmpate(" + i + ")'>Empate</button></td>";
-        elemento +=
-            "<td><button onclick='adicionarDerrota(" + i + ")'>Derrota</button></td>";
-        elemento += "</tr>";
+    if (jogadores.length > 0) {
+        for (let i = 0; i < jogadores.length; i++) {
+            elemento += "<tr><td>" + jogadores[i].nome + "</td>";
+            elemento += "<td>" + jogadores[i].vitorias + "</td>";
+            elemento += "<td>" + jogadores[i].empates + "</td>";
+            elemento += "<td>" + jogadores[i].derrotas + "</td>";
+            elemento += "<td>" + jogadores[i].pontos + "</td>";
+            elemento +=
+                "<td><button onclick='adicionarVitoria(" + i + ")'>Vitória</button></td>";
+            elemento +=
+                "<td><button onclick='adicionarEmpate(" + i + ")'>Empate</button></td>";
+            elemento +=
+                "<td><button onclick='adicionarDerrota(" + i + ")'>Derrota</button></td>";
+            elemento += "</tr>";
+        }
+    
+        let tabelaJogadores = document.getElementById("tabelaJogadores");
+        tabelaJogadores.innerHTML = elemento;
     }
-
-    let tabelaJogadores = document.getElementById("tabelaJogadores");
-    tabelaJogadores.innerHTML = elemento;
 }
 
 function adicionarVitoria(i) {
@@ -58,10 +75,13 @@ function adicionarVitoria(i) {
     exibirJogadores(jogadores);
 }
 
-function adicionarEmpate(i) {
+function adicionarEmpate() {
     let jogador = jogadores[i];
-    jogador.empates++;
-    jogador.pontos = calcularPontos(jogador);
+
+    for (let i = 0; i < jogador.length; i++) {
+        jogador.empates++;
+        jogador.pontos = calcularPontos(jogador);
+    }
 
     exibirJogadores(jogadores);
 }
