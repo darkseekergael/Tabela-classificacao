@@ -1,24 +1,5 @@
-// const rafa = {
-//   nome: "Rafaela",
-//   vitorias: 2,
-//   empates: 1,
-//   derrotas: 1,
-//   pontos: 0
-// };
-
-// const paulo = {
-//   nome: "Paulo",
-//   vitorias: 1,
-//   empates: 1,
-//   derrotas: 2,
-//   pontos: 0
-// };
-
-// let jogadores = [rafa, paulo];
-
 let jogadores = [];
 
-// exibirJogadores(jogadores);
 
 function adicionarJogadores() {
     let nomeJogador = document.getElementById("input-nome").value;
@@ -33,8 +14,8 @@ function adicionarJogadores() {
         };
         
         jogadores.push(novoJogador);
+        document.getElementById("input-nome").value = "";
     }
-
     exibirJogadores(jogadores);
 }
 
@@ -67,6 +48,17 @@ function exibirJogadores(jogadores) {
     }
 }
 
+function zerarPontos() {
+    for (let i = 0; i < jogadores.length; i++) {
+        jogadores[i].vitorias = 0;
+        jogadores[i].derrotas = 0;
+        jogadores[i].empates = 0;
+        jogadores[i].pontos = calcularPontos(jogadores[i]);
+    }
+
+    exibirJogadores(jogadores);
+}
+
 function adicionarVitoria(i) {
     let jogador = jogadores[i];
     jogador.vitorias++;
@@ -76,11 +68,9 @@ function adicionarVitoria(i) {
 }
 
 function adicionarEmpate() {
-    let jogador = jogadores[i];
-
-    for (let i = 0; i < jogador.length; i++) {
-        jogador.empates++;
-        jogador.pontos = calcularPontos(jogador);
+    for (let i = 0; i < jogadores.length; i++) {
+        jogadores[i].empates++;
+        jogadores[i].pontos = calcularPontos(jogadores[i]);
     }
 
     exibirJogadores(jogadores);
