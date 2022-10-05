@@ -11,25 +11,28 @@
 </head>
 
 <body>
-    <h1>Tabela de classificação</h1>
-    <div class="btn-wrapper">
-        <input type="text" id="input-nome" name="input-nome" placeholder="Nome do jogador" size="13">
-        <button name="adicionar" class="btn-adicionar" onclick="adicionarJogadores()">Adicionar jogador</button>
+    <div class="container">
+        <h1>Tabela de classificação</h1>
+        <div class="btn-container">
+            <input type="text" id="input-nome" name="input-nome" placeholder="Nome do jogador" size="13">
+            <button name="adicionar" class="btn-adicionar" onclick="adicionarJogadores()">Adicionar jogador</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Vitórias</th>
+                    <th>Empates</th>
+                    <th>Derrotas</th>
+                    <th>Pontos</th>
+                    <th colspan="4">Ações</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaJogadores">
+            </tbody>
+        </table>
+        <button name="zerar" class="btn-zerar" onclick="zerarPontos()">Zerar pontos</button>
     </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Vitórias</th>
-                <th>Empates</th>
-                <th>Derrotas</th>
-                <th>Pontos</th>
-                <th colspan="4">Ações</th>
-            </tr>
-        </thead>
-        <tbody id="tabelaJogadores">
-        </tbody>
-    </table>
 </body>
 
 </html>
