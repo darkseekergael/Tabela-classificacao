@@ -6,6 +6,7 @@ function adicionarJogadores() {
 
     if (nomeJogador != "") {
         const novoJogador = {
+            imagem: "<img class='player-image' src='https://cdn-icons-png.flaticon.com/512/714/714032.png'",
             nome: nomeJogador,
             vitorias: 0,
             empates: 0,
@@ -27,25 +28,32 @@ function calcularPontos(jogador) {
 function exibirJogadores(jogadores) {
     let elemento = "";
 
-    if (jogadores.length > 0) {
+    if (jogadores.length >= 0) {
         for (let i = 0; i < jogadores.length; i++) {
-            elemento += "<tr><td>" + jogadores[i].nome + "</td>";
+            elemento += "<tr><td>" + jogadores[i].imagem + "</td>";
+            elemento += "<td>" + jogadores[i].nome + "</td>";
             elemento += "<td>" + jogadores[i].vitorias + "</td>";
             elemento += "<td>" + jogadores[i].empates + "</td>";
             elemento += "<td>" + jogadores[i].derrotas + "</td>";
             elemento += "<td>" + jogadores[i].pontos + "</td>";
             elemento +=
-                "<td><button onclick='adicionarVitoria(" + i + ")'>Vitória</button></td>";
+                "<td><button class='action-btn' onclick='adicionarVitoria(" + i + ")'>Vitória</button></td>";
             elemento +=
-                "<td><button onclick='adicionarEmpate(" + i + ")'>Empate</button></td>";
+                "<td><button class='action-btn' onclick='adicionarEmpate(" + i + ")'>Empate</button></td>";
             elemento +=
-                "<td><button onclick='adicionarDerrota(" + i + ")'>Derrota</button></td>";
+                "<td><button class='action-btn' onclick='adicionarDerrota(" + i + ")'>Derrota</button></td>";
             elemento += "</tr>";
         }
     
         let tabelaJogadores = document.getElementById("tabelaJogadores");
         tabelaJogadores.innerHTML = elemento;
     }
+}
+
+function removerJogadores() {
+    jogadores.length = 0;
+
+    exibirJogadores(jogadores);
 }
 
 function zerarPontos() {
