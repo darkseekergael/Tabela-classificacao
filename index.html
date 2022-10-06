@@ -15,11 +15,14 @@
         <h1>Tabela de classificação</h1>
         <div class="btn-container">
             <input type="text" id="input-nome" name="input-nome" placeholder="Nome do jogador" size="13">
-            <button name="adicionar" class="btn-adicionar" onclick="adicionarJogadores()">Adicionar jogador</button>
+            <button name="adicionar" class="generic-btn" onclick="adicionarJogadores()">Adicionar jogador</button>
+            <button name="zerar" class="generic-btn" onclick="zerarPontos()">Zerar pontos</button>
+            <button name="remover" class="generic-btn" onclick="removerJogadores()">Remover jogadores</button>
         </div>
         <table>
             <thead>
                 <tr>
+                    <th>Imagem</th>
                     <th>Nome</th>
                     <th>Vitórias</th>
                     <th>Empates</th>
@@ -31,7 +34,6 @@
             <tbody id="tabelaJogadores">
             </tbody>
         </table>
-        <button name="zerar" class="btn-zerar" onclick="zerarPontos()">Zerar pontos</button>
     </div>
 </body>
 
