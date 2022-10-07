@@ -12,12 +12,18 @@
 
 <body>
     <div class="container">
-        <h1>Tabela de classificação</h1>
+        <h1 class="page-title">Tabela de classificação</h1>
         <div class="btn-container">
-            <input type="text" id="input-nome" name="input-nome" placeholder="Nome do jogador" size="13">
-            <button name="adicionar" class="generic-btn" onclick="adicionarJogadores()">Adicionar jogador</button>
-            <button name="zerar" class="generic-btn" onclick="zerarPontos()">Zerar pontos</button>
-            <button name="remover" class="generic-btn" onclick="removerJogadores()">Remover jogadores</button>
+            <label>Insira a url do ícone do jogador<br>
+                <input type="text" id="input-imagem" size="17">
+            </label>
+            <br><br>
+            <label>Insira o nome do jogador<br>
+                <input type="text" id="input-nome" size="17">
+            </label>
+            <br><br>
+            <button type="button" id="adicionar-jogador" class="generic-btn" onclick="adicionarJogadores()">Adicionar
+                jogador</button>
         </div>
         <table>
             <thead>
@@ -33,7 +39,15 @@
             </thead>
             <tbody id="tabelaJogadores">
             </tbody>
+            <tfoot>
+            </tfoot>
         </table>
+        <br><br>
+        <button type="button" id="zerar-pontos" disabled class="generic-btn" onclick="zerarPontos()">Zerar
+            pontos</button>
+        <button type="button" id="remover-jogadores" disabled class="generic-btn" onclick="removerJogadores()">Remover
+            jogadores</button>
+
     </div>
 </body>
 
