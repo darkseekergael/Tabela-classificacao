@@ -1,23 +1,33 @@
 let jogadores = [];
 
-
 function adicionarJogadores() {
     let nomeJogador = document.getElementById("input-nome").value;
+    let imagemJogador = document.getElementById("input-imagem").value;
 
-    if (nomeJogador != "") {
+
+    if (nomeJogador == "" || imagemJogador == "") {
+        alert("Insira um ícone e um nome!");
+    } else if (imagemJogador.endsWith(".jpg")) {
         const novoJogador = {
-            imagem: "<img class='player-image' src='https://cdn-icons-png.flaticon.com/512/714/714032.png'",
+            imagem: "<img src='" + imagemJogador + "' class='player-icon' alt='Ícone do jogador'",
             nome: nomeJogador,
             vitorias: 0,
             empates: 0,
             derrotas: 0,
-            pontos: 0
+            pontos: 0,
         };
-        
+
         jogadores.push(novoJogador);
+        document.getElementById("input-imagem").value = "";
         document.getElementById("input-nome").value = "";
+
+        document.getElementById("zerar-pontos").disabled = false;
+        document.getElementById("remover-jogadores").disabled = false;
+    } else {
+        alert("Utilize uma imagem .jpg!");
     }
     exibirJogadores(jogadores);
+
 }
 
 function calcularPontos(jogador) {
@@ -37,14 +47,14 @@ function exibirJogadores(jogadores) {
             elemento += "<td>" + jogadores[i].derrotas + "</td>";
             elemento += "<td>" + jogadores[i].pontos + "</td>";
             elemento +=
-                "<td><button class='action-btn' onclick='adicionarVitoria(" + i + ")'>Vitória</button></td>";
+                "<td><button class='action-btn' id='vitoria' onclick='adicionarVitoria(" + i + ")'>Vitória</button></td>";
             elemento +=
-                "<td><button class='action-btn' onclick='adicionarEmpate(" + i + ")'>Empate</button></td>";
+                "<td><button class='action-btn' id='empate' onclick='adicionarEmpate(" + i + ")'>Empate</button></td>";
             elemento +=
-                "<td><button class='action-btn' onclick='adicionarDerrota(" + i + ")'>Derrota</button></td>";
+                "<td><button class='action-btn' id='derrota' onclick='adicionarDerrota(" + i + ")'>Derrota</button></td>";
             elemento += "</tr>";
         }
-    
+
         let tabelaJogadores = document.getElementById("tabelaJogadores");
         tabelaJogadores.innerHTML = elemento;
     }
