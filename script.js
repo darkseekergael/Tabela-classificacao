@@ -1,15 +1,21 @@
 let jogadores = [];
 
 function adicionarJogadores() {
-    let nomeJogador = document.getElementById("input-nome").value;
-    let imagemJogador = document.getElementById("input-imagem").value;
+    let nomeJogador = document.getElementById("input-name").value;
+    let iconeJogador = document.getElementById("input-icon").value;
 
+    let elementoMensagemErro = document.getElementById("mensagemErro");
+    let mensagemErro = "É necessário preencher ambos os campos!";
 
-    if (nomeJogador == "" || imagemJogador == "") {
-        alert("Insira um ícone e um nome!");
-    } else if (imagemJogador.endsWith(".jpg")) {
+    if (nomeJogador == "" || iconeJogador == "") {
+        elementoMensagemErro.innerHTML = mensagemErro;
+
+        mensagemErro.innerHTML = "Preencha ambos os campos!";
+    } else if (iconeJogador.endsWith(".jpg") || iconeJogador.endsWith(".png")) {
+        elementoMensagemErro.innerHTML = "";
+        
         const novoJogador = {
-            imagem: "<img src='" + imagemJogador + "' class='player-icon' alt='Ícone do jogador'",
+            icone: "<img src='" + iconeJogador + "' class='player-icon' alt='Ícone do jogador'",
             nome: nomeJogador,
             vitorias: 0,
             empates: 0,
@@ -18,13 +24,19 @@ function adicionarJogadores() {
         };
 
         jogadores.push(novoJogador);
-        document.getElementById("input-imagem").value = "";
-        document.getElementById("input-nome").value = "";
+        document.getElementById("input-icon").value = "";
+        document.getElementById("input-name").value = "";
 
-        document.getElementById("zerar-pontos").disabled = false;
-        document.getElementById("remover-jogadores").disabled = false;
+        let elemento = "";
+
+        elemento += "<button type='button' id='zerar-pontos' class='generic-btn' onclick='zerarPontos()'>Zerar pontos</button>";
+        elemento += "<button type='button' id='remover-jogadores' class='generic-btn' onclick='removerJogadores()'>Remover jogadores</button>";
+        
+        let elementoBotoes = document.getElementById("botoes");
+        elementoBotoes.innerHTML = elemento;
+
     } else {
-        alert("Utilize uma imagem .jpg!");
+        elementoMensagemErro.innerHTML = "Utilize uma imagem em formato .jpg ou .png!";
     }
     exibirJogadores(jogadores);
 
@@ -40,7 +52,7 @@ function exibirJogadores(jogadores) {
 
     if (jogadores.length >= 0) {
         for (let i = 0; i < jogadores.length; i++) {
-            elemento += "<tr><td>" + jogadores[i].imagem + "</td>";
+            elemento += "<tr><td>" + jogadores[i].icone + "</td>";
             elemento += "<td>" + jogadores[i].nome + "</td>";
             elemento += "<td>" + jogadores[i].vitorias + "</td>";
             elemento += "<td>" + jogadores[i].empates + "</td>";
