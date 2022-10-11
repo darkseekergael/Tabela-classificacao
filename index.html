@@ -14,21 +14,21 @@
     <div class="container">
         <h1 class="page-title">Tabela de classificação</h1>
         <div class="btn-container">
-            <label>Insira a url do ícone do jogador<br>
-                <input type="text" id="input-imagem" size="17">
+            <label>Ícone do jogador<br>
+                <input type="text" id="input-icon" size="17" placeholder="Insira uma url .jpg/.png">
             </label>
             <br><br>
-            <label>Insira o nome do jogador<br>
-                <input type="text" id="input-nome" size="17">
+            <label>Nome do jogador<br>
+                <input type="text" id="input-name" size="17" placeholder="Insira seu nome" maxlength="20">
             </label>
-            <br><br>
+            <p id="mensagemErro"></p>
             <button type="button" id="adicionar-jogador" class="generic-btn" onclick="adicionarJogadores()">Adicionar
                 jogador</button>
         </div>
         <table>
             <thead>
                 <tr>
-                    <th>Imagem</th>
+                    <th>Ícone</th>
                     <th>Nome</th>
                     <th>Vitórias</th>
                     <th>Empates</th>
@@ -42,12 +42,8 @@
             <tfoot>
             </tfoot>
         </table>
-        <br><br>
-        <button type="button" id="zerar-pontos" disabled class="generic-btn" onclick="zerarPontos()">Zerar
-            pontos</button>
-        <button type="button" id="remover-jogadores" disabled class="generic-btn" onclick="removerJogadores()">Remover
-            jogadores</button>
-
+        <div id="botoes" class="sec-btn-container">
+        </div>
     </div>
 </body>
 
