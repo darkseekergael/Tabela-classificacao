@@ -68,7 +68,6 @@ label {
 }
 
 .action-btn {
-    background-color: white;
     color: #8900f2;
     font-weight: bold;
     border: none;
@@ -77,8 +76,8 @@ label {
     padding: 0.3rem 0.7rem;
 }
 
-#input-name,
-#input-icon {
+#inputName,
+#inputIcon {
     text-align: center;
     padding: 0.3rem;
     border: 1px solid white;
