@@ -14,15 +14,16 @@
     <div class="container">
         <h1 class="page-title">Tabela de classificação</h1>
         <div class="btn-container">
-            <label>Ícone do jogador<br>
-                <input type="text" id="input-icon" size="17" placeholder="Insira uma url .jpg/.png">
+            <label>Ícone do jogador
+                <input type="text" id="inputIcon" size="19" placeholder="Insira uma url .jpg ou .png">
             </label>
             <br><br>
-            <label>Nome do jogador<br>
-                <input type="text" id="input-name" size="17" placeholder="Insira seu nome" maxlength="20">
+            <label>Nome do jogador
+                <input type="text" id="inputName" size="16" placeholder="Insira seu nome" maxlength="15">
             </label>
+
             <p id="mensagemErro"></p>
-            <button type="button" id="adicionar-jogador" class="generic-btn" onclick="adicionarJogadores()">Adicionar
+            <button type="button" class="generic-btn" onclick="adicionarJogadores()">Adicionar
                 jogador</button>
         </div>
         <table>
