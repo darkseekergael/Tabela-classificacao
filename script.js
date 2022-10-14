@@ -1,21 +1,24 @@
 let jogadores = [];
 
 function adicionarJogadores() {
-    let nomeJogador = document.getElementById("input-name").value;
-    let iconeJogador = document.getElementById("input-icon").value;
-
+    let nomeJogador = document.getElementById("inputName").value;
+    let iconeJogador = document.getElementById("inputIcon").value;
     let elementoMensagemErro = document.getElementById("mensagemErro");
-    let mensagemErro = "É necessário preencher ambos os campos!";
 
-    if (nomeJogador == "" || iconeJogador == "") {
-        elementoMensagemErro.innerHTML = mensagemErro;
+    if (nomeJogador === "" || iconeJogador === "") {
+        elementoMensagemErro.innerHTML = "Preencha ambos os campos!";
 
-        mensagemErro.innerHTML = "Preencha ambos os campos!";
-    } else if (iconeJogador.endsWith(".jpg") || iconeJogador.endsWith(".png")) {
+    } else if (iconeJogador.endsWith(".jpg") === false && iconeJogador.endsWith(".png") === false) {
+        elementoMensagemErro.innerHTML = "Utilize uma imagem em formato .jpg ou .png!";
+
+    } else if (verificarJogadorExistente() === true) {
+        elementoMensagemErro.innerHTML = `O jogador [ ${nomeJogador} ] já existe!`;
+
+    } else {
         elementoMensagemErro.innerHTML = "";
-        
+
         const novoJogador = {
-            icone: "<img src='" + iconeJogador + "' class='player-icon' alt='Ícone do jogador'",
+            icone: `<img src='${iconeJogador}' class='player-icon' alt='Ícone do jogador'`,
             nome: nomeJogador,
             vitorias: 0,
             empates: 0,
@@ -24,22 +27,30 @@ function adicionarJogadores() {
         };
 
         jogadores.push(novoJogador);
-        document.getElementById("input-icon").value = "";
-        document.getElementById("input-name").value = "";
+        document.getElementById("inputIcon").value = "";
+        document.getElementById("inputName").value = "";
 
         let elemento = "";
 
-        elemento += "<button type='button' id='zerar-pontos' class='generic-btn' onclick='zerarPontos()'>Zerar pontos</button>";
-        elemento += "<button type='button' id='remover-jogadores' class='generic-btn' onclick='removerJogadores()'>Remover jogadores</button>";
-        
+        elemento += "<button type='button' class='generic-btn' onclick='zerarPontos()'>Zerar pontos</button>";
+        elemento += "<button type='button' class='generic-btn' onclick='removerJogadores()'>Remover jogadores</button>";
+
         let elementoBotoes = document.getElementById("botoes");
         elementoBotoes.innerHTML = elemento;
 
-    } else {
-        elementoMensagemErro.innerHTML = "Utilize uma imagem em formato .jpg ou .png!";
+        exibirJogadores(jogadores);
     }
-    exibirJogadores(jogadores);
+}
 
+function verificarJogadorExistente() {
+    let nomeJogador = document.getElementById("inputName").value;
+
+    for (let i = 0; i < jogadores.length; i++) {
+        if (jogadores[i].nome === nomeJogador) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function calcularPontos(jogador) {
@@ -52,19 +63,18 @@ function exibirJogadores(jogadores) {
 
     if (jogadores.length >= 0) {
         for (let i = 0; i < jogadores.length; i++) {
-            elemento += "<tr><td>" + jogadores[i].icone + "</td>";
-            elemento += "<td>" + jogadores[i].nome + "</td>";
-            elemento += "<td>" + jogadores[i].vitorias + "</td>";
-            elemento += "<td>" + jogadores[i].empates + "</td>";
-            elemento += "<td>" + jogadores[i].derrotas + "</td>";
-            elemento += "<td>" + jogadores[i].pontos + "</td>";
+            elemento += `<tr><td> ${jogadores[i].icone} </td>`;
+            elemento += `<td> ${jogadores[i].nome} </td>`;
+            elemento += `<td> ${jogadores[i].vitorias} </td>`;
+            elemento += `<td> ${jogadores[i].empates} </td>`;
+            elemento += `<td> ${jogadores[i].derrotas} </td>`;
+            elemento += `<td> ${jogadores[i].pontos} </td>`;
             elemento +=
-                "<td><button class='action-btn' id='vitoria' onclick='adicionarVitoria(" + i + ")'>Vitória</button></td>";
+                `<td><button type='button' class='action-btn' id='btnVitoria(${i})' onclick='adicionarVitoria(${i})'>Vitória</button></td>`;
             elemento +=
-                "<td><button class='action-btn' id='empate' onclick='adicionarEmpate(" + i + ")'>Empate</button></td>";
+                `<td><button type='button' class='action-btn' id='btnEmpate(${i})' onclick='adicionarEmpate(${i})'>Empate</button></td>`;
             elemento +=
-                "<td><button class='action-btn' id='derrota' onclick='adicionarDerrota(" + i + ")'>Derrota</button></td>";
-            elemento += "</tr>";
+                `<td><button type='button' class='action-btn' id='btnDerrota(${i})' onclick='adicionarDerrota(${i})'>Derrota</button></td></tr>`;
         }
 
         let tabelaJogadores = document.getElementById("tabelaJogadores");
@@ -90,25 +100,118 @@ function zerarPontos() {
 }
 
 function adicionarVitoria(i) {
-    let jogador = jogadores[i];
-    jogador.vitorias++;
-    jogador.pontos = calcularPontos(jogador);
+    let btnEmpate = document.getElementById(`btnEmpate(${i})`);
 
-    exibirJogadores(jogadores);
-}
+    if (btnEmpate.disabled == false) {
+        let jogador = jogadores[i];
+        jogador.vitorias++;
+        jogador.pontos = calcularPontos(jogador);
+        exibirJogadores(jogadores);
 
-function adicionarEmpate() {
-    for (let i = 0; i < jogadores.length; i++) {
-        jogadores[i].empates++;
-        jogadores[i].pontos = calcularPontos(jogadores[i]);
+        let btnDerrota = document.getElementById(`btnDerrota(${i})`);
+        btnDerrota.disabled = true;
+
+        for (let j = 0; j < jogadores.length; j++) {
+            let btnEmpate = document.getElementById(`btnEmpate(${j})`);
+            btnEmpate.disabled = true;
+
+            let btnVitoria = document.getElementById(`btnVitoria(${j})`);
+            btnVitoria.disabled = true;
+        }
+    } else {
+        let jogador = jogadores[i];
+        jogador.vitorias++;
+        jogador.pontos = calcularPontos(jogador);
+        exibirJogadores(jogadores);
+
+        let btnDerrota = document.getElementById(`btnDerrota(${i})`);
+        btnDerrota.disabled = false;
+
+        for (let j = 0; j < jogadores.length; j++) {
+            let btnEmpate = document.getElementById(`btnEmpate(${j})`);
+            btnEmpate.disabled = false;
+
+            let btnVitoria = document.getElementById(`btnVitoria(${j})`);
+            btnVitoria.disabled = false;
+        }
     }
-
-    exibirJogadores(jogadores);
 }
 
 function adicionarDerrota(i) {
-    let jogador = jogadores[i];
-    jogador.derrotas++;
+    let btnEmpate = document.getElementById(`btnEmpate(${i})`);
 
-    exibirJogadores(jogadores);
+    if (btnEmpate.disabled == false) {
+        let jogador = jogadores[i];
+        jogador.derrotas++;
+        exibirJogadores(jogadores);
+
+        let btnVitoria = document.getElementById(`btnVitoria(${i})`);
+        btnVitoria.disabled = true;
+
+        for (let j = 0; j < jogadores.length; j++) {
+            let btnEmpate = document.getElementById(`btnEmpate(${j})`);
+            btnEmpate.disabled = true;
+
+            let btnDerrota = document.getElementById(`btnDerrota(${j})`);
+            btnDerrota.disabled = true;
+        }
+    } else {
+        let jogador = jogadores[i];
+        jogador.derrotas++;
+        exibirJogadores(jogadores);
+
+        let btnVitoria = document.getElementById(`btnVitoria(${i})`);
+        btnVitoria.disabled = false;
+
+        for (let j = 0; j < jogadores.length; j++) {
+            let btnEmpate = document.getElementById(`btnEmpate(${j})`);
+            btnEmpate.disabled = false;
+
+            let btnDerrota = document.getElementById(`btnDerrota(${j})`);
+            btnDerrota.disabled = false;
+        }
+    }
+}
+
+function adicionarEmpate(i) {
+    let btnDerrota = document.getElementById(`btnDerrota(${i})`);
+
+    if (btnDerrota.disabled == false) {
+        let jogador = jogadores[i];
+
+        jogador.empates++;
+        jogador.pontos = calcularPontos(jogador);
+
+        exibirJogadores(jogadores);
+
+        let btnEmpate = document.getElementById(`btnEmpate(${i})`);
+        btnEmpate.disabled = true;
+
+        for (let j = 0; j < jogadores.length; j++) {
+            let btnVitoria = document.getElementById(`btnVitoria(${j})`);
+            btnVitoria.disabled = true;
+
+            let btnDerrota = document.getElementById(`btnDerrota(${j})`);
+            btnDerrota.disabled = true;
+        }
+    } else {
+        let jogador = jogadores[i];
+
+        jogador.empates++;
+        jogador.pontos = calcularPontos(jogador);
+
+        exibirJogadores(jogadores);
+
+        let btnEmpate = document.getElementById(`btnEmpate(${i})`);
+        btnEmpate.disabled = false;
+
+        for (let j = 0; j < jogadores.length; j++) {
+            let btnVitoria = document.getElementById(`btnVitoria(${j})`);
+            btnVitoria.disabled = false;
+
+            let btnDerrota = document.getElementById(`btnDerrota(${j})`);
+            btnDerrota.disabled = false;
+        }
+    }
+
 }
