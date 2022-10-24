@@ -58,7 +58,7 @@ function calcularPontos(jogador) {
     return pontos;
 }
 
-function exibirJogadores(jogadores) {
+function exibirJogadores() {
     let elemento = "";
 
     if (jogadores.length >= 0) {
